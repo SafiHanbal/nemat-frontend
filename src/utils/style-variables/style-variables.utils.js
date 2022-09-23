@@ -19,8 +19,8 @@ export const colorGrayDark2 = '#4e4e4e';
 export const colorGrayDark3 = '#6d6d6d';
 
 export const colorGrayLight1 = '#eee';
-export const colorGrayLight2 = '#cfcfcf';
-export const colorGrayLight3 = '#a0a0a0';
+export const colorGrayLight2 = '#e4e3e3';
+export const colorGrayLight3 = '#cfcfcf';
 
 export const fontDisplay = `'DM Serif Display', serif`;
 export const fontSansSerif = `'Lato', sans-serif`;

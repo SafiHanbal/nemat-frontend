@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import {
   NavigationContainer,
@@ -11,8 +12,11 @@ import {
 
 import ShoppingCart from '../../components/shopping-cart/shopping-cart.component';
 import Avatar from '../../components/avatar/avatar.component';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 const Navigation = () => {
+  const currentUser = useSelector(selectCurrentUser);
+
   return (
     <>
       <NavigationContainer>
@@ -20,13 +24,17 @@ const Navigation = () => {
           <Logo />
         </LogoContainer>
         <NavLinkContainer>
-          <NavLink to="menu">Menu</NavLink>
           <NavLink as="div">
             <ShoppingCart />
           </NavLink>
-          <NavLink to="me">
-            <Avatar />
-          </NavLink>
+          <NavLink to="menu">Menu</NavLink>
+          {currentUser ? (
+            <NavLink to="me">
+              <Avatar />
+            </NavLink>
+          ) : (
+            <NavLink to="auth">Login</NavLink>
+          )}
         </NavLinkContainer>
       </NavigationContainer>
       <Outlet />
