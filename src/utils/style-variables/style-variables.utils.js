@@ -7,7 +7,7 @@ export const colorPrimaryLightRGB = '187, 42, 89';
 
 export const colorSecondary = '#1DA476';
 export const colorSecondaryLight = '#6EBC75';
-export const colorSecondaryDark = '#00320F';
+export const colorSecondaryDark = '#055e09';
 
 export const colorWhite = '#fff';
 export const colorBlack = '#000';

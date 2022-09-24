@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   LoginHeading,
@@ -10,24 +11,37 @@ import {
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+import Loader from '../loader/loader.component';
+
+import { loginStart } from '../../store/user/user.action';
+import { selectIsLoading } from '../../store/user/user.selector';
 
 const defaultFormFields = {
-  number: '',
+  phone: '',
   password: '',
 };
 
 const LoginForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { number, password } = formFields;
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
 
-  console.log(formFields);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { phone, password } = formFields;
+
+  const clearFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
   const handleOnChange = (event) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
   };
+
   const handleOnSubmit = (event) => {
     event.preventDefault();
+    dispatch(loginStart(formFields));
+    clearFormFields();
   };
 
   return (
@@ -35,23 +49,24 @@ const LoginForm = () => {
       <LoginHeading>Login</LoginHeading>
       <Form onSubmit={handleOnSubmit}>
         <FormInput
-          label="Number"
-          id="number"
+          label="Phone"
+          id="phone"
           type="Number"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           onChange={handleOnChange}
           required
         />
         <FormInput
           label="Password"
+          id="password"
           type="password"
           name="password"
           value={password}
           onChange={handleOnChange}
           required
         />
-        <Button>Login</Button>
+        <Button>{isLoading ? <Loader /> : 'Login'}</Button>
       </Form>
       <SignUpLinkParagraph>
         Don't have an account.

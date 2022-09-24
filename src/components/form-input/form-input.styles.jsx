@@ -14,7 +14,7 @@ const shrinkLabel = `
 
 export const InputContainer = styled.div`
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 `;
 
 export const Label = styled.label`

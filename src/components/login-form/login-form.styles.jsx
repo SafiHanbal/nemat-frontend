@@ -18,7 +18,6 @@ export const LoginFormContainer = styled.div`
 
 export const Form = styled.form`
   padding: 2.5rem 0 3.5rem;
-
   border-bottom: 1px solid ${colorGrayDark3};
 `;
 

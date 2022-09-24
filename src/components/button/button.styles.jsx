@@ -8,7 +8,10 @@ import {
 } from '../../utils/style-variables/style-variables.utils';
 
 export const ButtonEl = styled.button`
-  padding: 1rem 2.5rem;
+  display: block;
+  height: 4rem;
+  width: 12rem;
+  text-align: center;
   cursor: pointer;
   font-size: inherit;
   font-family: inherit;
