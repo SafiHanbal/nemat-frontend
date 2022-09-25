@@ -5,6 +5,8 @@ const USER_INITIAL_STATE = {
   isLoading: false,
 };
 
+const setIsLoading = (state, isLoading) => ({ ...state, isLoading });
+
 export const userReducer = (state = USER_INITIAL_STATE, action) => {
   const { type, payload } = action;
 
@@ -15,35 +17,29 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         currentUser: payload,
       };
     case USER_ACTION_TYPES.LOGIN_USER_START:
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return setIsLoading(state, true);
     case USER_ACTION_TYPES.LOGIN_USER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-      };
+      return setIsLoading(state, false);
     case USER_ACTION_TYPES.LOGIN_USER_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-      };
+      return setIsLoading(state, false);
     case USER_ACTION_TYPES.SIGNUP_USER_START:
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return setIsLoading(state, true);
     case USER_ACTION_TYPES.SIGNUP_USER_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-      };
+      return setIsLoading(state, false);
     case USER_ACTION_TYPES.SIGNUP_USER_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-      };
+      return setIsLoading(state, false);
+    case USER_ACTION_TYPES.FORGOT_PASSWORD_START:
+      return setIsLoading(state, true);
+    case USER_ACTION_TYPES.FORGOT_PASSWORD_SUCCESS:
+      return setIsLoading(state, false);
+    case USER_ACTION_TYPES.FORGOT_PASSWORD_FAILED:
+      return setIsLoading(state, false);
+    case USER_ACTION_TYPES.RESET_PASSWORD_START:
+      return setIsLoading(state, true);
+    case USER_ACTION_TYPES.RESET_PASSWORD_SUCCESS:
+      return setIsLoading(state, false);
+    case USER_ACTION_TYPES.RESET_PASSWORD_FAILED:
+      return setIsLoading(state, false);
 
     default:
       return state;

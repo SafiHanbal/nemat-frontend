@@ -38,5 +38,6 @@ export const fetchData = async (
 
   const res = await fetch(url, reqOptions);
   const data = await res.json();
+  if (process.env.NODE_ENV !== 'production') console.log(data);
   return data;
 };

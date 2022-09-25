@@ -9,15 +9,23 @@ import {
   loginFailed,
   signUpSuccess,
   signUpFailed,
+  forgotPasswordSucess,
+  forgotPasswordFailed,
+  resetPasswordSuccess,
+  resetPasswordFailed,
 } from './user.action';
 
 function* loginUser({ payload: { phone, password } }) {
   try {
-    const endpoint = 'api/v1/user/login';
-    const data = yield call(fetchData, endpoint, REQ_METHOD_TYPES.post, {
-      phone,
-      password,
-    });
+    const data = yield call(
+      fetchData,
+      'api/v1/user/login',
+      REQ_METHOD_TYPES.post,
+      {
+        phone,
+        password,
+      }
+    );
 
     const { user } = data.data;
     yield put(setCurrentUser(user));
@@ -66,6 +74,37 @@ function* signUpUser({ payload }) {
   }
 }
 
+function* forgotPassword({ payload: { phone } }) {
+  try {
+    yield call(
+      fetchData,
+      'api/v1/user/forgot-password',
+      REQ_METHOD_TYPES.post,
+      { phone }
+    );
+    yield put(forgotPasswordSucess());
+  } catch (err) {
+    yield put(forgotPasswordFailed(err));
+  }
+}
+
+function* resetPassword({ payload: { otp, password, passwordConfirm } }) {
+  try {
+    const data = yield call(
+      fetchData,
+      'api/v1/user/reset-password',
+      REQ_METHOD_TYPES.post,
+      { otp, password, passwordConfirm }
+    );
+
+    const { user } = data.data;
+    yield put(setCurrentUser(user));
+    yield put(resetPasswordSuccess());
+  } catch (err) {
+    yield put(resetPasswordFailed(err));
+  }
+}
+
 function* onLoginStart() {
   yield takeLatest(USER_ACTION_TYPES.LOGIN_USER_START, loginUser);
 }
@@ -74,6 +113,19 @@ function* onSignUpStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGNUP_USER_START, signUpUser);
 }
 
+function* onForgotPasswordStart() {
+  yield takeLatest(USER_ACTION_TYPES.FORGOT_PASSWORD_START, forgotPassword);
+}
+
+function* onResetPasswordStart() {
+  yield takeLatest(USER_ACTION_TYPES.RESET_PASSWORD_START, resetPassword);
+}
+
 export function* userSaga() {
-  yield all([call(onLoginStart), call(onSignUpStart)]);
+  yield all([
+    call(onLoginStart),
+    call(onSignUpStart),
+    call(onForgotPasswordStart),
+    call(onResetPasswordStart),
+  ]);
 }

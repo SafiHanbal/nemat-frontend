@@ -10,7 +10,7 @@ import {
 export const ButtonEl = styled.button`
   display: block;
   height: 4rem;
-  width: 12rem;
+  width: 16rem;
   text-align: center;
   cursor: pointer;
   font-size: inherit;

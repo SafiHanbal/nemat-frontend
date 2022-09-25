@@ -21,3 +21,21 @@ export const signUpSuccess = (payload) =>
 
 export const signUpFailed = (payload) =>
   createAction(USER_ACTION_TYPES.SIGNUP_USER_FAILED, payload);
+
+export const forgotPasswordStart = (payload) =>
+  createAction(USER_ACTION_TYPES.FORGOT_PASSWORD_START, payload);
+
+export const forgotPasswordSucess = (payload) =>
+  createAction(USER_ACTION_TYPES.FORGOT_PASSWORD_SUCCESS, payload);
+
+export const forgotPasswordFailed = (payload) =>
+  createAction(USER_ACTION_TYPES.FORGOT_PASSWORD_FAILED, payload);
+
+export const resetPasswordStart = (payload) =>
+  createAction(USER_ACTION_TYPES.RESET_PASSWORD_START, payload);
+
+export const resetPasswordSuccess = (payload) =>
+  createAction(USER_ACTION_TYPES.RESET_PASSWORD_SUCCESS, payload);
+
+export const resetPasswordFailed = (payload) =>
+  createAction(USER_ACTION_TYPES.RESET_PASSWORD_FAILED, payload);
