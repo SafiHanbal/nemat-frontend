@@ -4,8 +4,8 @@ import {
   colorPrimaryLightRGB,
   fontDisplay,
   colorWhite,
-  colorGrayLight1,
   colorBlackRGB,
+  colorGrayLight1,
 } from '../../utils/style-variables/style-variables.utils';
 
 import HeroImg from '../../assets/hero-img.jpg';

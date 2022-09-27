@@ -10,7 +10,7 @@ import {
 export const ButtonEl = styled.button`
   display: block;
   height: 4rem;
-  width: 16rem;
+  width: ${({ buttonWidth }) => (buttonWidth === '100%' ? '100%' : '16rem')};
   text-align: center;
   cursor: pointer;
   font-size: inherit;

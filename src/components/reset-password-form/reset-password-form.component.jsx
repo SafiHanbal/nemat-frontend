@@ -11,6 +11,7 @@ import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 import Loader from '../loader/loader.component';
 
+import { resetPasswordStart } from '../../store/user/user.action';
 import { selectIsLoading } from '../../store/user/user.selector';
 
 const defaultFormFields = {
@@ -37,7 +38,7 @@ const ResetPasswordForm = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-
+    dispatch(resetPasswordStart({ otp, password, passwordConfirm }));
     clearFormFields();
   };
 

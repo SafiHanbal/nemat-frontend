@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   colorSecondary,
-  colorGrayLight2,
+  colorGrayLight3,
 } from '../../utils/style-variables/style-variables.utils';
 
-const shrinkLabel = `
+const shrinkLabel = css`
   font-size: 1.3rem;
   left: 0;
   top: 0;
@@ -36,7 +36,7 @@ export const Input = styled.input`
   border: none;
   outline: none;
   border-bottom: 2px solid ${colorSecondary};
-  background-color: ${colorGrayLight2};
+  background-color: ${colorGrayLight3};
 
   &:focus ~ ${Label} {
     ${shrinkLabel}
