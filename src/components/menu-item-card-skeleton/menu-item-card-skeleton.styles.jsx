@@ -31,19 +31,6 @@ export const HeaderBox = styled.div`
   ${skeletonShimmerAnimation}
 `;
 
-export const NameBox = styled.div`
-  height: 2.239rem;
-  grid-column: span 4;
-
-  ${skeletonShimmerAnimation}
-`;
-
-export const PriceBox = styled.div`
-  height: 2.239rem;
-
-  ${skeletonShimmerAnimation}
-`;
-
 export const DescriptionBodyBox = styled.div`
   height: 2rem;
   width: 100%;

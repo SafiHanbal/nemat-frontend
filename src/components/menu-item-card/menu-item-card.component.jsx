@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Image from '../../assets/achari-paneer-tikka-shaslik-small.jpg';
 import VegImage from '../../assets/veg-icon.png';
 import StarIcon from '../../assets/star.png';
 import ServingIcon from '../../assets/serving.png';
@@ -23,24 +22,38 @@ import {
 
 import Button from '../button/button.component';
 
-const MenuItemCard = () => {
+const MenuItemCard = ({ data }) => {
+  const {
+    image,
+    isNonVeg,
+    name,
+    price,
+    ratingsAverage,
+    ratingsCount,
+    servings,
+  } = data;
+
   return (
     <MenuItemCardContainer>
-      <MenuItemImage src={Image} alt="Menu card image" />
-      <VegSticker src={VegImage} alt="Sticker for Veg items" />
+      <MenuItemImage src={image.small} alt="Menu card image" />
+      {!isNonVeg && <VegSticker src={VegImage} alt="Sticker for Veg items" />}
       <DescriptionContainer>
         <DescriptionHeader>
-          <Name>Achari Paneer Tikka </Name>
-          <Price>₹89</Price>
+          <Name>{name}</Name>
+          <Price>₹{price}</Price>
         </DescriptionHeader>
         <DescriptionBody>
-          <Rating rating={3}>
-            <img src={StarIcon} alt="Star icon" />
-            <RatingText>3.4</RatingText>
+          <Rating rating={ratingsAverage}>
+            {ratingsCount !== 0 && <img src={StarIcon} alt="Star icon" />}
+            <RatingText>
+              {ratingsCount
+                ? `${ratingsAverage} (${ratingsCount})`
+                : 'Not Rated'}
+            </RatingText>
           </Rating>
           <Serving>
             <img src={ServingIcon} alt="Serving icon" />
-            <ServingText>1</ServingText>
+            <ServingText>{servings}</ServingText>
           </Serving>
           <MenuItemLink>See More</MenuItemLink>
         </DescriptionBody>

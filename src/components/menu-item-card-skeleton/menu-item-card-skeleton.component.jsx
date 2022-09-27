@@ -5,7 +5,6 @@ import {
   ImageBox,
   DescriptionContainer,
   HeaderBox,
-  NameBox,
   DescriptionBodyBox,
   ButtonBox,
 } from './menu-item-card-skeleton.styles';

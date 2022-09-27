@@ -26,8 +26,6 @@ export const fetchData = async (
     method,
   };
 
-  console.log(body);
-
   if (method === 'POST' || method === 'PATCH') {
     reqOptions.headers = {
       'Content-Type': 'application/json',
