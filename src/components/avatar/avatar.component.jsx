@@ -3,10 +3,10 @@ import { AvatarContainer, AvatarImg } from './avatar.styles';
 
 import DefaultAvatar from '../../assets/default.jpg';
 
-const Avatar = () => {
+const Avatar = ({ image, small = false }) => {
   return (
-    <AvatarContainer>
-      <AvatarImg src={DefaultAvatar} alt="User avatar" />
+    <AvatarContainer small={small}>
+      <AvatarImg src={image || DefaultAvatar} alt="User avatar" />
     </AvatarContainer>
   );
 };

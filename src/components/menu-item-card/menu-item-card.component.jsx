@@ -31,6 +31,7 @@ const MenuItemCard = ({ data }) => {
     ratingsAverage,
     ratingsCount,
     servings,
+    slug,
   } = data;
 
   return (
@@ -55,7 +56,7 @@ const MenuItemCard = ({ data }) => {
             <img src={ServingIcon} alt="Serving icon" />
             <ServingText>{servings}</ServingText>
           </Serving>
-          <MenuItemLink>See More</MenuItemLink>
+          <MenuItemLink to={`/${slug}`}>See More</MenuItemLink>
         </DescriptionBody>
         <Button buttonWidth="100%">Add to Cart</Button>
       </DescriptionContainer>

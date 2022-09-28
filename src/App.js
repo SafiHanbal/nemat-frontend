@@ -7,6 +7,7 @@ import Authentication from './routes/authentication/authentication.component';
 import Menu from './routes/menu/menu.component';
 import Me from './routes/me/me.component';
 import Checkout from './routes/checkout/checkout.component';
+import MenuItem from './routes/menu-item/menu-item.component';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="auth/*" element={<Authentication />} />
         <Route path="menu/*" element={<Menu />} />
+        <Route path=":menuItem" element={<MenuItem />} />
         <Route path="me" element={<Me />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>

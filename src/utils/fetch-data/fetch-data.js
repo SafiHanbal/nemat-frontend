@@ -1,19 +1,5 @@
 import { REQ_METHOD_TYPES } from './req-types';
 
-// const res = await fetch(
-//   `https://nemat-hanbal.herokuapp.com/api/v1/user/login`,
-//   {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       phone: Number(phone),
-//       password,
-//     }),
-//   }
-// );
-
 export const fetchData = async (
   endpoint,
   method = REQ_METHOD_TYPES.get,

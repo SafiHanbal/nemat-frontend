@@ -9,6 +9,8 @@ const MENU_INITIAL_STATE = {
   sides: [],
   displayItems: [],
   category: '',
+  currentMenuItem: [],
+  isMenuItemLoading: false,
 };
 
 export const menuReducer = (state = MENU_INITIAL_STATE, action) => {
@@ -33,6 +35,23 @@ export const menuReducer = (state = MENU_INITIAL_STATE, action) => {
       return {
         ...state,
         ...payload,
+      };
+    case MENU_ACTION_TYPES.FETCH_MENU_ITEM_START:
+      return {
+        ...state,
+        isMenuItemLoading: true,
+        menuItemSlug: payload,
+      };
+    case MENU_ACTION_TYPES.FETCH_MENU_ITEM_SUCCESS:
+      return {
+        ...state,
+        isMenuItemLoading: false,
+        currentMenuItem: payload,
+      };
+    case MENU_ACTION_TYPES.FETCH_MENU_ITEM_FAILED:
+      return {
+        ...state,
+        isMenuItemLoading: false,
       };
 
     default:

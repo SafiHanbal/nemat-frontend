@@ -13,6 +13,7 @@ import HeroImg from '../../assets/hero-img.jpg';
 export const HeaderComp = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   min-height: 55rem;
   background-size: cover;

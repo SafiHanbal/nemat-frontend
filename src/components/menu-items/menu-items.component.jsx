@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MenuItemsContainer } from './menu-items.styles';
 
 import MenuItemCard from '../menu-item-card/menu-item-card.component';
-import MenuItemCardSkeleton from '../menu-item-card-skeleton/menu-item-card-skeleton.component';
+import MenuItemCardSkeleton from '../../skeleton/menu-item-card-skeleton/menu-item-card-skeleton.component';
 
 import {
   fetchMenuStart,

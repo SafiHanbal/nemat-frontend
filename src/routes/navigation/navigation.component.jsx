@@ -30,7 +30,7 @@ const Navigation = () => {
           <NavLink to="menu">Menu</NavLink>
           {currentUser ? (
             <NavLink to="me">
-              <Avatar />
+              <Avatar small={true} />
             </NavLink>
           ) : (
             <NavLink to="auth">Login</NavLink>
