@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   colorGrayDark3,
   colorPrimary,
+  colorPrimaryDark,
 } from '../../utils/style-variables/style-variables.utils';
 
 export const SignUpFormContainer = styled.div`
@@ -51,4 +52,9 @@ export const LoginLinkParagraph = styled.p`
 export const LoginLink = styled(Link)`
   text-decoration: none;
   color: ${colorPrimary};
+`;
+
+export const ErrorMsg = styled.p`
+  color: ${colorPrimaryDark};
+  font-size: 1.4rem;
 `;

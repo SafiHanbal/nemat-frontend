@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import {
   colorGrayDark3,
   colorPrimary,
+  colorPrimaryDark,
+  colorSecondary,
 } from '../../utils/style-variables/style-variables.utils';
 
 export const LoginHeading = styled.h2`
@@ -25,7 +27,19 @@ export const SignUpLinkParagraph = styled.p`
   margin-top: 2rem;
 `;
 
+export const ForgotPasswordLink = styled(Link)`
+  display: inline-block;
+  text-decoration: none;
+  color: ${colorSecondary};
+  padding-top: 1rem;
+`;
+
 export const SingUpLink = styled(Link)`
   text-decoration: none;
   color: ${colorPrimary};
+`;
+
+export const ErrorMsg = styled.p`
+  color: ${colorPrimaryDark};
+  font-size: 1.4rem;
 `;

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -12,6 +13,7 @@ import {
   PinCodeInputContainer,
   LoginLinkParagraph,
   LoginLink,
+  ErrorMsg,
 } from './signup-form.styles';
 
 import FormInput from '../form-input/form-input.component';
@@ -19,7 +21,11 @@ import Button from '../button/button.component';
 import Loader from '../loader/loader.component';
 
 import { signUpStart } from '../../store/user/user.action';
-import { selectIsLoading } from '../../store/user/user.selector';
+import {
+  selectIsLoading,
+  selectSignUpError,
+  selectCurrentUser,
+} from '../../store/user/user.selector';
 
 const defaultFormFields = {
   name: '',
@@ -34,7 +40,11 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectSignUpError);
+  const user = useSelector(selectCurrentUser);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { name, phone, house, area, city, pinCode, password, passwordConfirm } =
@@ -52,12 +62,20 @@ const SignUpForm = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     dispatch(signUpStart(formFields));
-    clearFormFields();
   };
+
+  useEffect(() => {
+    if (user) {
+      clearFormFields();
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <SignUpFormContainer>
       <SignupHeading>SignUp</SignupHeading>
+      {error && <ErrorMsg>{error.message}</ErrorMsg>}
       <Form onSubmit={onSubmitHandler}>
         <FormInput
           label="Name"

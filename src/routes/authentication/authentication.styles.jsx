@@ -19,7 +19,7 @@ export const AuthenticationContainer = styled.div`
 
 export const AuthenticationPageImage = styled.div`
   min-height: inherit;
-  width: 50%;
+  min-width: 50rem;
   background-position: center;
   background-size: cover;
   border-radius: 2px;

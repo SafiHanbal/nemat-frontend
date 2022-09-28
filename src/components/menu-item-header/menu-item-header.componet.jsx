@@ -13,7 +13,6 @@ import {
 } from './menu-item-header.styles';
 
 import Button from '../../components/button/button.component';
-import Image from '../../assets/achari-paneer-tikka-shaslik-large.jpg';
 
 import { selectCurrentMenuItem } from '../../store/menu/menu.selector';
 
@@ -33,7 +32,7 @@ const MenuItemHeader = () => {
   console.log(currentMenuItem, currentMenuItem.name);
 
   return (
-    <MenuItemContanier image={image?.large || Image}>
+    <MenuItemContanier image={image?.large}>
       <div>
         <Name>{name}</Name>
         <Summary>{description}</Summary>

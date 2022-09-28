@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -6,6 +7,7 @@ import {
   ForgotPasswordHeading,
   ForgotPasswordDescription,
   Form,
+  ErrorMsg,
 } from './forgot-password-form.styles';
 
 import FormInput from '../form-input/form-input.component';
@@ -13,7 +15,11 @@ import Button from '../button/button.component';
 import Loader from '../loader/loader.component';
 
 import { forgotPasswordStart } from '../../store/user/user.action';
-import { selectIsLoading } from '../../store/user/user.selector';
+import {
+  selectIsLoading,
+  selectForgotPasswordError,
+  selectIsOptSent,
+} from '../../store/user/user.selector';
 
 const defaultFormFields = {
   phone: '',
@@ -21,7 +27,11 @@ const defaultFormFields = {
 
 const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectForgotPasswordError);
+  const isOtpSent = useSelector(selectIsOptSent);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { phone } = formFields;
@@ -38,8 +48,16 @@ const ForgotPasswordForm = () => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     dispatch(forgotPasswordStart({ phone }));
-    clearFormFields();
   };
+
+  useEffect(() => {
+    if (isOtpSent) {
+      clearFormFields();
+      navigate('/auth/reset-password');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOtpSent]);
+
   return (
     <ForgotPasswordFormContainer>
       <ForgotPasswordHeading>Forgot Password</ForgotPasswordHeading>
@@ -47,6 +65,7 @@ const ForgotPasswordForm = () => {
         To reset your password, please enter your phone number associated with
         user account. Nemat will send the OTP to the phone for this account.
       </ForgotPasswordDescription>
+      {error && <ErrorMsg>{error.message}</ErrorMsg>}
       <Form onSubmit={handleOnSubmit}>
         <FormInput
           label="Phone"

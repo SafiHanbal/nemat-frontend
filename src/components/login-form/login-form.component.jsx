@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   LoginHeading,
   LoginFormContainer,
   Form,
+  ForgotPasswordLink,
   SignUpLinkParagraph,
   SingUpLink,
+  ErrorMsg,
 } from './login-form.styles';
 
 import FormInput from '../form-input/form-input.component';
@@ -14,7 +17,11 @@ import Button from '../button/button.component';
 import Loader from '../loader/loader.component';
 
 import { loginStart } from '../../store/user/user.action';
-import { selectIsLoading } from '../../store/user/user.selector';
+import {
+  selectIsLoading,
+  selectLoginError,
+  selectCurrentUser,
+} from '../../store/user/user.selector';
 
 const defaultFormFields = {
   phone: '',
@@ -23,7 +30,11 @@ const defaultFormFields = {
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectLoginError);
+  const user = useSelector(selectCurrentUser);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { phone, password } = formFields;
@@ -41,12 +52,20 @@ const LoginForm = () => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     dispatch(loginStart(formFields));
-    clearFormFields();
   };
+
+  useEffect(() => {
+    if (user) {
+      clearFormFields();
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <LoginFormContainer>
       <LoginHeading>Login</LoginHeading>
+      {error && <ErrorMsg>{error.message}</ErrorMsg>}
       <Form onSubmit={handleOnSubmit}>
         <FormInput
           label="Phone"
@@ -67,6 +86,9 @@ const LoginForm = () => {
           required
         />
         <Button>{isLoading ? <Loader /> : 'Login'}</Button>
+        <ForgotPasswordLink to="forgot-password">
+          Forgot Password?
+        </ForgotPasswordLink>
       </Form>
       <SignUpLinkParagraph>
         Don't have an account.

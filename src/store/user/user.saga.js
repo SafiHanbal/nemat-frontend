@@ -27,6 +27,7 @@ function* loginUser({ payload: { phone, password } }) {
       }
     );
 
+    if (data.status === 'fail') throw new Error(data.message);
     const { user } = data.data;
     yield put(setCurrentUser(user));
     yield put(loginSuccess());
@@ -66,6 +67,7 @@ function* signUpUser({ payload }) {
       }
     );
 
+    if (data.status === 'fail') throw new Error(data.message);
     const { user } = data.data;
     yield put(setCurrentUser(user));
     yield put(signUpSuccess());
@@ -76,12 +78,14 @@ function* signUpUser({ payload }) {
 
 function* forgotPassword({ payload: { phone } }) {
   try {
-    yield call(
+    const data = yield call(
       fetchData,
       'api/v1/user/forgot-password',
       REQ_METHOD_TYPES.post,
       { phone }
     );
+
+    if (data.status === 'fail') throw new Error(data.message);
     yield put(forgotPasswordSucess());
   } catch (err) {
     yield put(forgotPasswordFailed(err));
@@ -97,6 +101,7 @@ function* resetPassword({ payload: { otp, password, passwordConfirm } }) {
       { otp, password, passwordConfirm }
     );
 
+    if (data.status === 'fail') throw new Error(data.message);
     const { user } = data.data;
     yield put(setCurrentUser(user));
     yield put(resetPasswordSuccess());

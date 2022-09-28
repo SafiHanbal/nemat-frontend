@@ -15,7 +15,7 @@ import Avatar from '../../components/avatar/avatar.component';
 import { selectCurrentUser } from '../../store/user/user.selector';
 
 const Navigation = () => {
-  const currentUser = useSelector(selectCurrentUser);
+  const user = useSelector(selectCurrentUser);
 
   return (
     <>
@@ -28,9 +28,9 @@ const Navigation = () => {
             <ShoppingCart />
           </NavLink>
           <NavLink to="menu">Menu</NavLink>
-          {currentUser ? (
+          {user ? (
             <NavLink to="me">
-              <Avatar small={true} />
+              <Avatar small={true} image={user.photo} />
             </NavLink>
           ) : (
             <NavLink to="auth">Login</NavLink>
