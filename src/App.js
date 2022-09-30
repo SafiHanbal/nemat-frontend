@@ -17,7 +17,7 @@ const App = () => {
         <Route path="auth/*" element={<Authentication />} />
         <Route path="menu/*" element={<Menu />} />
         <Route path=":menuItem" element={<MenuItem />} />
-        <Route path="me" element={<Me />} />
+        <Route path="me/*" element={<Me />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>
     </Routes>

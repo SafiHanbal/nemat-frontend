@@ -6,10 +6,12 @@ export const fetchData = async (
   body
 ) => {
   const host = 'https://nemat-hanbal.herokuapp.com/';
+  // const host = 'http://127.0.0.1:8000/';
   const url = `${host}${endpoint}`;
 
   const reqOptions = {
     method,
+    credentials: 'include',
   };
 
   if (method === 'POST' || method === 'PATCH') {
@@ -20,6 +22,7 @@ export const fetchData = async (
     reqOptions.body = JSON.stringify(body);
   }
 
+  console.log(url);
   const res = await fetch(url, reqOptions);
   const data = await res.json();
   if (process.env.NODE_ENV !== 'production') console.log(data);

@@ -19,6 +19,10 @@ export const CategoriesNavigationContainer = styled.div`
     ${colorPrimary},
     ${colorPrimaryLight}
   );
+
+  position: sticky;
+  top: 6.7rem;
+  z-index: 10;
 `;
 
 export const CategoryLink = styled(Link)`

@@ -17,6 +17,8 @@ export const NavigationContainer = styled.nav`
   box-shadow: 0 5px 5px rgba(${colorBlackRGB}, 0.3);
   position: sticky;
   position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const LogoContainer = styled(Link)``;
