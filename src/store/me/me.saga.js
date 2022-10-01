@@ -11,18 +11,19 @@ import {
   logoutSucess,
   logoutFailed,
 } from './me.action';
-import { setCurrentUser } from '../user/user.action';
+import { setCurrentUser, setToken } from '../user/user.action';
 
 function* updateMe({ payload }) {
   try {
-    console.log(payload);
     const data = yield call(
       fetchData,
       'api/v1/user/update-me',
       REQ_METHOD_TYPES.patch,
-      payload
+      payload,
+      false
     );
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     const { user } = data.data;
     yield put(setCurrentUser(user));
     yield put(updateMeSucess());
@@ -40,9 +41,12 @@ function* updatePassword({ payload }) {
       payload
     );
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     const { user } = data.data;
+    const { token } = data.data;
 
+    yield put(setToken(token));
     yield put(updatePasswordSuccess());
     yield put(setCurrentUser(user));
   } catch (err) {
@@ -54,8 +58,10 @@ function* logoutUser() {
   try {
     const data = yield call(fetchData, 'api/v1/user/logout');
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
 
+    yield put(setToken(null));
     yield put(setCurrentUser(null));
     yield put(logoutSucess());
   } catch (err) {

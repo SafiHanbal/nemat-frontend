@@ -28,7 +28,6 @@ const Logout = () => {
   const user = useSelector(selectCurrentUser);
 
   const handleOnClick = () => {
-    console.log(true);
     dispatch(logoutStart());
   };
 

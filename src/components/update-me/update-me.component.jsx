@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Heading, Form, Error } from './update-me.styles';
+import {
+  Heading,
+  Form,
+  Error,
+  FileInput,
+  FileInputLabel,
+  FileInpuContainer,
+} from './update-me.styles';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
@@ -16,12 +23,12 @@ import {
 
 const defaultFormFields = {
   name: '',
-  phone: '',
   email: '',
   house: '',
   area: '',
   city: '',
   pinCode: '',
+  photo: null,
 };
 
 const UpdateMe = () => {
@@ -32,13 +39,12 @@ const UpdateMe = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
 
-  const { name, phone, email, house, area, city, pinCode } = formFields;
+  const { name, email, house, area, city, pinCode, photo } = formFields;
 
   useEffect(() => {
     if (user) {
       setFormFields({
         name: user.name,
-        phone: user.phone,
         email: user.email,
         house: user.address.house,
         area: user.address.area,
@@ -50,19 +56,23 @@ const UpdateMe = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      updateMeStart({
-        name,
-        phone,
-        email,
-        address: { house, area, city, pinCode },
-      })
-    );
+    console.log(true);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('address', JSON.stringify({ house, area, city, pinCode }));
+    formData.append('photo', photo);
+
+    dispatch(updateMeStart(formData));
   };
 
   const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value });
+    const { name, value, files } = event.target;
+    if (files) {
+      setFormFields({ ...formFields, photo: files[0] });
+    } else {
+      setFormFields({ ...formFields, [name]: value });
+    }
   };
 
   return (
@@ -79,14 +89,6 @@ const UpdateMe = () => {
           onChange={handleOnChange}
         />
         <FormInput
-          label="Phone"
-          type="number"
-          id="phone"
-          name="phone"
-          value={phone}
-          onChange={handleOnChange}
-        />
-        <FormInput
           label="Email"
           type="email"
           id="email"
@@ -94,7 +96,6 @@ const UpdateMe = () => {
           value={email}
           onChange={handleOnChange}
         />
-        <span></span>
         <FormInput
           label="House"
           type="text"
@@ -127,6 +128,17 @@ const UpdateMe = () => {
           value={pinCode}
           onChange={handleOnChange}
         />
+        <FileInpuContainer>
+          <FileInputLabel htmlFor="photo">Photo</FileInputLabel>
+          <FileInput
+            type="file"
+            id="photo"
+            accept="image/*"
+            name="photo"
+            onChange={handleOnChange}
+          />
+        </FileInpuContainer>
+        <span></span>
         <Button>{isLoading ? <Loader /> : 'Update'}</Button>
       </Form>
     </>

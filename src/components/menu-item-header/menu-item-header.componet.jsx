@@ -29,8 +29,6 @@ const MenuItemHeader = () => {
     image,
   } = currentMenuItem;
 
-  console.log(currentMenuItem, currentMenuItem.name);
-
   return (
     <MenuItemContanier image={image?.large}>
       <div>

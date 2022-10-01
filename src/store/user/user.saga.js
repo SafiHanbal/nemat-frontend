@@ -5,6 +5,7 @@ import { REQ_METHOD_TYPES } from '../../utils/fetch-data/req-types';
 import { USER_ACTION_TYPES } from './user.types';
 import {
   setCurrentUser,
+  setToken,
   loginSuccess,
   loginFailed,
   signUpSuccess,
@@ -14,6 +15,18 @@ import {
   resetPasswordSuccess,
   resetPasswordFailed,
 } from './user.action';
+
+function* checkToken() {
+  try {
+    const data = yield call(fetchData, 'api/v1/user/get-me');
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
+    console.log(data);
+  } catch (err) {
+    yield put(setCurrentUser(null));
+    yield put(setToken(null));
+  }
+}
 
 function* loginUser({ payload: { phone, password } }) {
   try {
@@ -27,8 +40,12 @@ function* loginUser({ payload: { phone, password } }) {
       }
     );
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     const { user } = data.data;
+    const { token } = data.data;
+
+    yield put(setToken(token));
     yield put(setCurrentUser(user));
     yield put(loginSuccess());
   } catch (err) {
@@ -67,8 +84,12 @@ function* signUpUser({ payload }) {
       }
     );
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     const { user } = data.data;
+    const { token } = data.data;
+
+    yield put(setToken(token));
     yield put(setCurrentUser(user));
     yield put(signUpSuccess());
   } catch (err) {
@@ -85,7 +106,8 @@ function* forgotPassword({ payload: { phone } }) {
       { phone }
     );
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     yield put(forgotPasswordSucess());
   } catch (err) {
     yield put(forgotPasswordFailed(err));
@@ -101,13 +123,21 @@ function* resetPassword({ payload: { otp, password, passwordConfirm } }) {
       { otp, password, passwordConfirm }
     );
 
-    if (data.status === 'fail') throw new Error(data.message);
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
     const { user } = data.data;
+    const { token } = data.data;
+
+    yield put(setToken(token));
     yield put(setCurrentUser(user));
     yield put(resetPasswordSuccess());
   } catch (err) {
     yield put(resetPasswordFailed(err));
   }
+}
+
+function* onCheckToken() {
+  yield takeLatest(USER_ACTION_TYPES.CHECK_TOKEN, checkToken);
 }
 
 function* onLoginStart() {
@@ -128,6 +158,7 @@ function* onResetPasswordStart() {
 
 export function* userSaga() {
   yield all([
+    call(onCheckToken),
     call(onLoginStart),
     call(onSignUpStart),
     call(onForgotPasswordStart),

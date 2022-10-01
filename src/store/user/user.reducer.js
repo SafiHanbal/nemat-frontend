@@ -2,6 +2,7 @@ import { USER_ACTION_TYPES } from './user.types';
 
 const USER_INITIAL_STATE = {
   currentUser: null,
+  token: null,
   isLoading: false,
   loginError: null,
   signUpError: null,
@@ -21,6 +22,13 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         ...state,
         currentUser: payload,
       };
+    case USER_ACTION_TYPES.SET_TOKEN:
+      return {
+        ...state,
+        token: payload,
+      };
+    case USER_ACTION_TYPES.CHECK_TOKEN:
+      return state;
     case USER_ACTION_TYPES.LOGIN_USER_START:
       return setIsLoading(state, true);
     case USER_ACTION_TYPES.LOGIN_USER_SUCCESS:

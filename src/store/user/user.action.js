@@ -4,6 +4,12 @@ import { USER_ACTION_TYPES } from './user.types';
 export const setCurrentUser = (payload) =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, payload);
 
+export const setToken = (payload) =>
+  createAction(USER_ACTION_TYPES.SET_TOKEN, payload);
+
+export const checkToken = (payload) =>
+  createAction(USER_ACTION_TYPES.CHECK_TOKEN, payload);
+
 export const loginStart = (payload) =>
   createAction(USER_ACTION_TYPES.LOGIN_USER_START, payload);
 
