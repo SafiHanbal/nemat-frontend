@@ -7,8 +7,8 @@ export const fetchData = async (
   body,
   stringify = true
 ) => {
-  // const host = 'https://nemat-hanbal.herokuapp.com/';
-  const host = 'http://127.0.0.1:8000/';
+  const host = 'https://nemat-hanbal.herokuapp.com/';
+  // const host = 'http://127.0.0.1:8000/';
   const url = `${host}${endpoint}`;
 
   const reqOptions = {
@@ -25,7 +25,6 @@ export const fetchData = async (
       reqOptions.headers['Content-Type'] = 'application/json';
       reqOptions.body = JSON.stringify(body);
     } else {
-      console.log(true);
       reqOptions.body = body;
     }
   }

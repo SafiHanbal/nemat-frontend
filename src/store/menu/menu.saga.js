@@ -9,6 +9,8 @@ import {
   changeDisplayItems,
   fetchMenuItemSuccess,
   fetchMenuItemFailed,
+  postReviewSuccess,
+  postReviewFailed,
 } from './menu.action';
 
 function* fetchMenuAsync({ payload: { category } }) {
@@ -41,6 +43,23 @@ function* fetchMenuItemAsync({ payload }) {
   }
 }
 
+function* postReview({ payload: { menuItemId, review } }) {
+  try {
+    const data = yield call(
+      fetchData,
+      `api/v1/menu/${menuItemId}/review`,
+      REQ_METHOD_TYPES.post,
+      review
+    );
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
+
+    yield put(postReviewSuccess());
+  } catch (err) {
+    yield put(postReviewFailed(err));
+  }
+}
+
 function* onFetchMenuStart() {
   yield takeLatest(MENU_ACTION_TYPES.FETCH_MENU_ITEMS_START, fetchMenuAsync);
 }
@@ -49,6 +68,14 @@ function* onFetchMenuItemStart() {
   yield takeLatest(MENU_ACTION_TYPES.FETCH_MENU_ITEM_START, fetchMenuItemAsync);
 }
 
+function* onPostReviewStart() {
+  yield takeLatest(MENU_ACTION_TYPES.POST_REVIEW_START, postReview);
+}
+
 export function* menuSaga() {
-  yield all([call(onFetchMenuStart), call(onFetchMenuItemStart)]);
+  yield all([
+    call(onFetchMenuStart),
+    call(onFetchMenuItemStart),
+    call(onPostReviewStart),
+  ]);
 }

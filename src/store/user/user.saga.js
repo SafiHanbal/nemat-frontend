@@ -21,7 +21,6 @@ function* checkToken() {
     const data = yield call(fetchData, 'api/v1/user/get-me');
     if (data.status === 'fail' || data.status === 'error')
       throw new Error(data.message);
-    console.log(data);
   } catch (err) {
     yield put(setCurrentUser(null));
     yield put(setToken(null));

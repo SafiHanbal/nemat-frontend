@@ -4,25 +4,32 @@ import {
   ReviewContainer,
   ReviewDescriptionContainer,
   Name,
-  Date,
+  StarContainer,
+  Star,
   ReviewText,
 } from './review.styes';
 
-import AvatarImage from '../../assets/zaad-choudhury.jpg';
 import Avatar from '../avatar/avatar.component';
 
-const Review = () => {
+const Review = ({ reviewData }) => {
+  const {
+    user: { name, photo },
+    rating,
+    review,
+  } = reviewData;
   return (
     <ReviewContainer>
-      <Avatar image={AvatarImage} />
+      <Avatar image={photo} />
       <ReviewDescriptionContainer>
-        <Name>Vimala Issac</Name>
-        <Date>Yesterday</Date>
-        <ReviewText>
-          Decent place. The service was good for the most part but the waiter
-          was a bit air-headed. The ambiance gives off an earthy feel-good vibe.
-          The food was cooked to perfection. 4 stars of quality.
-        </ReviewText>
+        <Name>{name}</Name>
+        <StarContainer>
+          <Star active={rating >= 1 ? 1 : 0} />
+          <Star active={rating >= 2 ? 1 : 0} />
+          <Star active={rating >= 3 ? 1 : 0} />
+          <Star active={rating >= 4 ? 1 : 0} />
+          <Star active={rating >= 5 ? 1 : 0} />
+        </StarContainer>
+        <ReviewText>{review}</ReviewText>
       </ReviewDescriptionContainer>
     </ReviewContainer>
   );

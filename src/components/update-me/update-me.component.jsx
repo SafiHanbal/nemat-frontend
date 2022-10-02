@@ -56,7 +56,6 @@ const UpdateMe = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log(true);
     const formData = new FormData();
     formData.append('name', name);
     formData.append('email', email);

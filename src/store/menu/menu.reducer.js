@@ -11,6 +11,8 @@ const MENU_INITIAL_STATE = {
   category: '',
   currentMenuItem: [],
   isMenuItemLoading: false,
+  postingReview: false,
+  postReviewError: null,
 };
 
 export const menuReducer = (state = MENU_INITIAL_STATE, action) => {
@@ -52,6 +54,23 @@ export const menuReducer = (state = MENU_INITIAL_STATE, action) => {
       return {
         ...state,
         isMenuItemLoading: false,
+      };
+    case MENU_ACTION_TYPES.POST_REVIEW_START:
+      return {
+        ...state,
+        postingReview: true,
+      };
+    case MENU_ACTION_TYPES.POST_REVIEW_SUCCESS:
+      return {
+        ...state,
+        postingReview: false,
+        postReviewError: null,
+      };
+    case MENU_ACTION_TYPES.POST_REVIEW_FAILED:
+      return {
+        ...state,
+        postingReview: false,
+        postReviewError: payload,
       };
 
     default:

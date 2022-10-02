@@ -21,3 +21,12 @@ export const fetchMenuItemSuccess = (payload) =>
 
 export const fetchMenuItemFailed = (payload) =>
   createAction(MENU_ACTION_TYPES.FETCH_MENU_ITEM_FAILED, payload);
+
+export const postReviewStart = (payload) =>
+  createAction(MENU_ACTION_TYPES.POST_REVIEW_START, payload);
+
+export const postReviewSuccess = (payload) =>
+  createAction(MENU_ACTION_TYPES.POST_REVIEW_SUCCESS, payload);
+
+export const postReviewFailed = (payload) =>
+  createAction(MENU_ACTION_TYPES.POST_REVIEW_FAILED, payload);
