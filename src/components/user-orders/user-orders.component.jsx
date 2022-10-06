@@ -26,10 +26,10 @@ const UserOrders = () => {
   const orderedConfirmed = useSelector(selectOrderConfirmed);
 
   useEffect(() => {
-    if (!userOrders.length) {
+    if (!userOrders.length && user) {
       dispatch(getUserOrderStart(user.id));
     }
-    if (orderedConfirmed) {
+    if (orderedConfirmed && user) {
       dispatch(getUserOrderStart(user.id));
       dispatch(
         setCartItems({
@@ -41,7 +41,7 @@ const UserOrders = () => {
       dispatch(setOrderConfirmed(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderedConfirmed, user.id, userOrders.length]);
+  }, [orderedConfirmed, user, userOrders.length]);
 
   return (
     <UserOrderContainer>

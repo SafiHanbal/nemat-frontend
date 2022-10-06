@@ -85,6 +85,7 @@ function* codOrderStart({ payload }) {
     const data = yield call(fetchData, 'api/v1/order', REQ_METHOD_TYPES.post, {
       paymentMethod: 'cash-on-delivery',
       menuItems: cartItemsModified,
+      orderedAt: Date.now(),
     });
 
     console.log(data);
@@ -100,19 +101,21 @@ function* codOrderStart({ payload }) {
 
 function* cardOrder({ payload }) {
   try {
-    console.log(payload);
     const cartItemsModified = payload.map((item) => ({
       id: item.id,
       quantity: item.quantity,
     }));
-    console.log(cartItemsModified);
+
     const data = yield call(
       fetchData,
       'api/v1/order/checkout-session',
       REQ_METHOD_TYPES.post,
       { menuItems: cartItemsModified }
     );
-    console.log(data);
+
+    if (data.status !== 'success') throw new Error(data.message);
+    const { session } = data;
+    yield put(cardOrderSuccess(session));
   } catch (err) {
     yield put(cardOrderFailed(err));
   }

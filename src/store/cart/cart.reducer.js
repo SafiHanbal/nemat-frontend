@@ -8,6 +8,7 @@ const CART_INITIAL_STATE = {
   orderConfirmed: false,
   userOrders: [],
   userOrdersLoading: false,
+  stripeSession: null,
 };
 
 export const cartReducer = (state = CART_INITIAL_STATE, action) => {
@@ -56,6 +57,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
       return {
         ...state,
         confirmOrderLoading: false,
+        stripeSession: payload,
       };
     case CART_ACTION_TYPES.CARD_ORDER_FAILED:
       return {

@@ -12,3 +12,5 @@ export const selectOrderConfirmed = (state) => state.cart.orderConfirmed;
 export const selectUserOrders = (state) => state.cart.userOrders;
 
 export const selectUserOrdersLoading = (state) => state.cart.userOrdersLoading;
+
+export const selectStripeSession = (state) => state.cart.stripeSession;

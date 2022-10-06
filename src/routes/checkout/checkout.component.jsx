@@ -10,12 +10,14 @@ import ConfirmOrder from '../../components/confirm-order/confirm-order.component
 import {
   selectCartItems,
   selectOrderConfirmed,
+  selectStripeSession,
 } from '../../store/cart/cart.selector';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const orderedConfirmed = useSelector(selectOrderConfirmed);
+  const stripeSession = useSelector(selectStripeSession);
 
   useEffect(() => {
     if (orderedConfirmed) {
@@ -24,10 +26,16 @@ const Checkout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderedConfirmed]);
 
+  useEffect(() => {
+    if (stripeSession?.url) {
+      window.location.replace(stripeSession.url);
+    }
+  }, [stripeSession]);
+
   return (
     <CheckoutContainer>
       {cartItems.map((item) => (
-        <CheckoutItem key={item.id} checkoutItemData={item} />
+        <CheckoutItem key={item._id} checkoutItemData={item} />
       ))}
       <ConfirmOrder />
     </CheckoutContainer>
