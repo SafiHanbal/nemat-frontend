@@ -12,8 +12,6 @@ import {
   ButtonContainer,
 } from './menu-item-header.styles';
 
-import Button from '../../components/button/button.component';
-
 import { selectCurrentMenuItem } from '../../store/menu/menu.selector';
 
 const MenuItemHeader = () => {
@@ -56,9 +54,7 @@ const MenuItemHeader = () => {
             <DescriptionValue></DescriptionValue>
           </DescriptionEl>
         </DescriptionContainer>
-        <ButtonContainer>
-          <Button>Add to Cart</Button>
-        </ButtonContainer>
+        <ButtonContainer></ButtonContainer>
       </div>
     </MenuItemContanier>
   );

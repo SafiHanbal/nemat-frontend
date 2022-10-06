@@ -40,7 +40,7 @@ const ReviewForm = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    dispatch(postReviewStart({ menuItemId: menuItem._id, review: formFields }));
+    dispatch(postReviewStart({ menuItemId: menuItem.id, review: formFields }));
   };
 
   const handleOnChange = (event) => {

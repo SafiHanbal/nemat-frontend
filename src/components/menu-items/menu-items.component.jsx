@@ -39,7 +39,9 @@ const MenuItems = () => {
       {shimmer && menuData.map(({ id }) => <MenuItemCardSkeleton key={id} />)}
       {menuData[0] &&
         !shimmer &&
-        menuData.map((item) => <MenuItemCard key={item.id} data={item} />)}
+        menuData.map((item) => (
+          <MenuItemCard key={item.id} menuItemData={item} />
+        ))}
     </MenuItemsContainer>
   );
 };

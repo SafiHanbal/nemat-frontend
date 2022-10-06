@@ -4,6 +4,8 @@ import { REQ_METHOD_TYPES } from '../../utils/fetch-data/req-types';
 
 import { MENU_ACTION_TYPES } from './menu.types';
 import {
+  fetchSpecialDealsSuccess,
+  fetchSpecialDealsFailed,
   fetchMenuSuccess,
   fetchMenuFailed,
   changeDisplayItems,
@@ -12,6 +14,19 @@ import {
   postReviewSuccess,
   postReviewFailed,
 } from './menu.action';
+
+function* fetchSpecialDeals() {
+  try {
+    const data = yield call(fetchData, 'api/v1/menu/special-deals');
+
+    if (data.status === 'fail' || data.status === 'error')
+      throw new Error(data.message);
+    const { menuItems } = data.data;
+    yield put(fetchSpecialDealsSuccess(menuItems));
+  } catch (err) {
+    yield put(fetchSpecialDealsFailed(err));
+  }
+}
 
 function* fetchMenuAsync({ payload: { category } }) {
   try {
@@ -60,6 +75,13 @@ function* postReview({ payload: { menuItemId, review } }) {
   }
 }
 
+function* onFetchSpecialDealsStart() {
+  yield takeLatest(
+    MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_START,
+    fetchSpecialDeals
+  );
+}
+
 function* onFetchMenuStart() {
   yield takeLatest(MENU_ACTION_TYPES.FETCH_MENU_ITEMS_START, fetchMenuAsync);
 }
@@ -74,6 +96,7 @@ function* onPostReviewStart() {
 
 export function* menuSaga() {
   yield all([
+    call(onFetchSpecialDealsStart),
     call(onFetchMenuStart),
     call(onFetchMenuItemStart),
     call(onPostReviewStart),

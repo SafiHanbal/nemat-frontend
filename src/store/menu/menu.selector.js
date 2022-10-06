@@ -1,3 +1,5 @@
+export const selectSpecialDeals = (state) => state.menu.specialDeals;
+
 export const selectDisplayItems = (state) => state.menu.displayItems;
 
 export const selectMenu = (state) => state.menu;

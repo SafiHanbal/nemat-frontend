@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import VegImage from '../../assets/veg-icon.png';
 import StarIcon from '../../assets/star.png';
@@ -22,7 +23,13 @@ import {
 
 import Button from '../button/button.component';
 
-const MenuItemCard = ({ data }) => {
+import { addToCartStart } from '../../store/cart/cart.action';
+import { selectCartItems } from '../../store/cart/cart.selector';
+
+const MenuItemCard = ({ menuItemData }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+
   const {
     image,
     isNonVeg,
@@ -32,7 +39,11 @@ const MenuItemCard = ({ data }) => {
     ratingsCount,
     servings,
     slug,
-  } = data;
+  } = menuItemData;
+
+  const handleOnClick = (event) => {
+    dispatch(addToCartStart({ cartItems, itemToAdd: menuItemData }));
+  };
 
   return (
     <MenuItemCardContainer>
@@ -58,7 +69,9 @@ const MenuItemCard = ({ data }) => {
           </Serving>
           <MenuItemLink to={`/${slug}`}>See More</MenuItemLink>
         </DescriptionBody>
-        <Button buttonWidth="100%">Add to Cart</Button>
+        <Button buttonWidth="100%" onClick={handleOnClick}>
+          Add to Cart
+        </Button>
       </DescriptionContainer>
     </MenuItemCardContainer>
   );

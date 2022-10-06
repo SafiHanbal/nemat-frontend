@@ -1,21 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { CartIconContainer, CartIcon, CartCount } from './shopping-cart.styles';
-import { toggleCartDropdown } from '../../store/cart/cart.action';
-import { selectIsCartActive } from '../../store/cart/cart.selector';
+import { selectCartCount } from '../../store/cart/cart.selector';
 
 const ShoppingCart = () => {
-  const dispatch = useDispatch();
-
-  const isCartActive = useSelector(selectIsCartActive);
-  const handleToggleCartDropdown = () =>
-    dispatch(toggleCartDropdown(!isCartActive));
-
+  const cartCount = useSelector(selectCartCount);
   return (
-    <CartIconContainer onClick={handleToggleCartDropdown}>
+    <CartIconContainer>
       <CartIcon />
-      <CartCount>20</CartCount>
+      <CartCount>{cartCount}</CartCount>
     </CartIconContainer>
   );
 };

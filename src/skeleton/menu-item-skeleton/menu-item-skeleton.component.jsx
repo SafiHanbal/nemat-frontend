@@ -16,7 +16,6 @@ const MenuItemSkeleton = () => {
         <SummaryBox />
         <PropertyBox />
         <PropertyBox />
-        <ButtonBox />
       </div>
     </ContainerBox>
   );

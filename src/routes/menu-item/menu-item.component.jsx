@@ -7,7 +7,6 @@ import { ReviewsContianer, EmptyData } from './menu-item.styles';
 import MenuItemHeader from '../../components/menu-item-header/menu-item-header.componet';
 import ReviewForm from '../../components/review-form/review-form.component';
 import Review from '../../components/review/review.component';
-import Button from '../../components/button/button.component';
 import MenuItemSkeleton from '../../skeleton/menu-item-skeleton/menu-item-skeleton.component';
 
 import { fetchMenuItemStart } from '../../store/menu/menu.action';

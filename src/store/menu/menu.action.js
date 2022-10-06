@@ -1,6 +1,15 @@
 import { createAction } from '../../utils/create-action/create-action';
 import { MENU_ACTION_TYPES } from './menu.types';
 
+export const fetchSpecialDealsStart = (payload) =>
+  createAction(MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_START, payload);
+
+export const fetchSpecialDealsSuccess = (payload) =>
+  createAction(MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_SUCCESS, payload);
+
+export const fetchSpecialDealsFailed = (payload) =>
+  createAction(MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_FAILED, payload);
+
 export const fetchMenuStart = (payload) =>
   createAction(MENU_ACTION_TYPES.FETCH_MENU_ITEMS_START, payload);
 

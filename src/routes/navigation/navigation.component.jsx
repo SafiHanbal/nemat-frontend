@@ -24,7 +24,7 @@ const Navigation = () => {
           <Logo />
         </LogoContainer>
         <NavLinkContainer>
-          <NavLink as="div">
+          <NavLink to="checkout">
             <ShoppingCart />
           </NavLink>
           <NavLink to="menu">Menu</NavLink>

@@ -1,6 +1,8 @@
 import { MENU_ACTION_TYPES } from './menu.types';
 
 const MENU_INITIAL_STATE = {
+  specialDeals: [],
+  specialDealsLoading: false,
   starter: [],
   mainCourse: [],
   bread: [],
@@ -18,6 +20,23 @@ const MENU_INITIAL_STATE = {
 export const menuReducer = (state = MENU_INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_START:
+      return {
+        ...state,
+        specialDealsLoading: true,
+        specialDeals: payload,
+      };
+    case MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_SUCCESS:
+      return {
+        ...state,
+        specialDealsLoading: false,
+        specialDeals: payload,
+      };
+    case MENU_ACTION_TYPES.FETCH_SPECIAL_DEALS_FAILED:
+      return {
+        ...state,
+        specialDealsLoading: false,
+      };
     case MENU_ACTION_TYPES.FETCH_MENU_ITEMS_START:
       return {
         ...state,
